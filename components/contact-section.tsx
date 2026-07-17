@@ -92,7 +92,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
             </StaggerItem>
 
             <StaggerItem>
-              <div className="dark-panel p-6 md:p-8">
+              <div className="relative rounded-[32px] border border-white/10 bg-midnight-950 p-6 text-white shadow-panelStrong md:p-8">
                 <p className="eyebrow text-white/50">What you can expect</p>
                 <ul className="mt-5 space-y-4">
                   {contact.responsePoints.map((point) => (
