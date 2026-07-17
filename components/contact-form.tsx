@@ -133,6 +133,7 @@ export function ContactForm({
                 name={field.name}
                 required={field.required}
                 placeholder={field.placeholder}
+                maxLength={field.maxLength}
                 rows={6}
                 className={baseClassName}
               />
@@ -177,6 +178,8 @@ export function ContactForm({
               type={field.type ?? "text"}
               required={field.required}
               placeholder={field.placeholder}
+              autoComplete={field.autoComplete}
+              maxLength={field.maxLength}
               className={baseClassName}
             />
           </div>

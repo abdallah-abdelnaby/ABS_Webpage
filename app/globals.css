@@ -26,7 +26,7 @@ main {
 }
 
 .shell {
-  @apply mx-auto w-full max-w-[88rem] px-6 md:px-8 lg:px-10;
+  @apply mx-auto w-full max-w-[88rem] px-5 sm:px-6 md:px-8 lg:px-10;
 }
 
 .eyebrow {
@@ -35,7 +35,7 @@ main {
 }
 
 .button-primary {
-  @apply inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-accent-500 to-accent-400 px-5 py-3.5 text-sm font-semibold text-white shadow-[0_14px_32px_-16px_rgba(47,111,237,0.72)] transition duration-300 hover:-translate-y-0.5 hover:from-accent-400 hover:to-accent-300 hover:shadow-[0_20px_44px_-18px_rgba(47,111,237,0.7)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-500/20;
+  @apply inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-accent-600 to-accent-500 px-5 py-3.5 text-sm font-semibold text-white shadow-[0_14px_32px_-16px_rgba(47,111,237,0.72)] transition duration-300 hover:-translate-y-0.5 hover:from-accent-500 hover:to-accent-600 hover:shadow-[0_20px_44px_-18px_rgba(47,111,237,0.7)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-500/20;
 }
 
 .button-secondary {

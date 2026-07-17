@@ -29,13 +29,13 @@ export function ContactSection({ contact }: ContactSectionProps) {
         />
 
         <MotionReveal>
-          <div className="overflow-hidden rounded-[34px] bg-midnight-950 p-8 text-white shadow-panelStrong md:p-10">
+          <div className="relative overflow-hidden rounded-[34px] bg-midnight-950 p-7 text-white shadow-panelStrong md:p-10">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(77,134,255,0.18),transparent_28%)]" />
             <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl space-y-3">
-                <p className="eyebrow text-white/48">Pre-project framing</p>
+                <p className="eyebrow text-white/50">Pre-project framing</p>
                 <h3 className="text-balance text-3xl font-semibold tracking-[-0.04em]">{contact.banner.title}</h3>
-                <p className="text-base leading-7 text-white/68">{contact.banner.description}</p>
+                <p className="text-base leading-7 text-white/70">{contact.banner.description}</p>
               </div>
               <Link href={contact.banner.ctaHref} className="button-tertiary shrink-0">
                 {contact.banner.ctaLabel}
@@ -46,7 +46,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
 
         <div className="mt-6 grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
           <MotionReveal>
-            <div id="contact-form" className="surface-card p-6 md:p-8">
+            <div id="contact-form" className="surface-card scroll-mt-24 p-6 md:scroll-mt-28 md:p-8">
               <ContactForm
                 fields={contact.form.fields}
                 projectTypeOptions={contact.form.projectTypeOptions}
@@ -71,6 +71,12 @@ export function ContactSection({ contact }: ContactSectionProps) {
                         <p key={line}>{line}</p>
                       ))}
                     </address>
+                    <a
+                      href={`mailto:${contact.email}`}
+                      className="mt-3 inline-flex text-sm font-semibold text-accent-600 underline decoration-accent-500/30 underline-offset-4 transition hover:text-accent-500"
+                    >
+                      {contact.email}
+                    </a>
                   </div>
 
                   <div className="grid gap-3">
@@ -87,17 +93,17 @@ export function ContactSection({ contact }: ContactSectionProps) {
 
             <StaggerItem>
               <div className="dark-panel p-6 md:p-8">
-                <p className="eyebrow text-white/48">What you can expect</p>
-                <div className="mt-5 space-y-4">
+                <p className="eyebrow text-white/50">What you can expect</p>
+                <ul className="mt-5 space-y-4">
                   {contact.responsePoints.map((point) => (
-                    <div key={point} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
-                      <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-accent-500/18 text-accent-300">
+                    <li key={point} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
+                      <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-accent-500/20 text-accent-300">
                         <Check className="h-4 w-4" aria-hidden="true" />
                       </span>
-                      <p className="text-sm leading-6 text-white/72">{point}</p>
-                    </div>
+                      <p className="text-sm leading-6 text-white/70">{point}</p>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </StaggerItem>
 
@@ -112,8 +118,8 @@ export function ContactSection({ contact }: ContactSectionProps) {
                     className="absolute inset-0 h-full w-full border-0"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,11,21,0.04),transparent_24%,transparent_72%,rgba(5,11,21,0.28))]" />
-                  <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-midnight-900/88 px-4 py-3 backdrop-blur-sm">
-                    <div className="flex items-start justify-between gap-4">
+                  <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-midnight-900/90 px-4 py-3 backdrop-blur-sm">
+                    <div className="flex flex-col items-start gap-3 sm:flex-row sm:justify-between sm:gap-4">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 text-white">
                           <MapPin className="h-4 w-4 shrink-0 text-accent-300" aria-hidden="true" />

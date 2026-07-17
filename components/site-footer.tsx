@@ -25,15 +25,15 @@ export function SiteFooter({ brand, footer, legal, navigationLabel }: SiteFooter
         <div className="grid gap-10 border-t border-white/10 pt-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
           <div className="space-y-5">
             <LogoMark brand={brand} theme="dark" src="/logo-footer.png" />
-            <p className="max-w-md text-sm leading-7 text-white/62">{footer.description}</p>
-            <p className="text-sm text-white/48">
+            <p className="max-w-md text-sm leading-7 text-white/60">{footer.description}</p>
+            <p className="text-sm text-white/50">
               {brand.fullName} · {footer.rightsLabel}
             </p>
           </div>
 
           <nav aria-label={navigationLabel} className="space-y-4">
-            <p className="eyebrow text-white/40">Quick links</p>
-            <ul className="space-y-3 text-sm text-white/68">
+            <p className="eyebrow text-white/55">Quick links</p>
+            <ul className="space-y-3 text-sm text-white/70">
               {footer.quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={normalizeHref(link.href)} className="transition hover:text-white">
@@ -45,8 +45,8 @@ export function SiteFooter({ brand, footer, legal, navigationLabel }: SiteFooter
           </nav>
 
           <div className="space-y-4">
-            <p className="eyebrow text-white/40">Services</p>
-            <ul className="space-y-3 text-sm text-white/68">
+            <p className="eyebrow text-white/55">Services</p>
+            <ul className="space-y-3 text-sm text-white/70">
               {footer.serviceLinks.map((link) => (
                 <li key={`${link.label}-${link.href}`}>
                   <Link href={normalizeHref(link.href)} className="transition hover:text-white">
@@ -59,8 +59,8 @@ export function SiteFooter({ brand, footer, legal, navigationLabel }: SiteFooter
 
           <div className="space-y-5">
             <div>
-              <p className="eyebrow text-white/40">Registered office</p>
-              <address className="mt-3 not-italic text-sm leading-7 text-white/68">
+              <p className="eyebrow text-white/55">Registered office</p>
+              <address className="mt-3 not-italic text-sm leading-7 text-white/70">
                 <p>{legal.companyName}</p>
                 <p>{legal.address.street}</p>
                 <p>{legal.address.postalCodeCity}</p>
@@ -69,8 +69,8 @@ export function SiteFooter({ brand, footer, legal, navigationLabel }: SiteFooter
             </div>
 
             <div>
-              <p className="eyebrow text-white/40">Legal</p>
-              <ul className="mt-3 space-y-2 text-sm text-white/68">
+              <p className="eyebrow text-white/55">Legal</p>
+              <ul className="mt-3 space-y-2 text-sm text-white/70">
                 {footer.legalLinks.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className="transition hover:text-white">

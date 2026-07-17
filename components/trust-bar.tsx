@@ -41,7 +41,7 @@ export function TrustBar({ trust }: TrustBarProps) {
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   className="h-full rounded-[30px] border border-steel-200 bg-gradient-to-b from-white to-steel-50 p-6 shadow-panel"
                 >
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-col items-start gap-3 sm:flex-row sm:justify-between">
                     <div>
                       <p className="eyebrow text-steel-500">{item.context}</p>
                       <h3 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-steel-900">{item.name}</h3>

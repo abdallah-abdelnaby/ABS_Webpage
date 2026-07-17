@@ -82,6 +82,8 @@ export type ContactField = {
   type?: "text" | "email" | "textarea" | "select";
   placeholder?: string;
   required?: boolean;
+  autoComplete?: string;
+  maxLength?: number;
 };
 
 export type CompanyDetail = {
@@ -141,18 +143,14 @@ export const siteConfig = {
       {
         value: "6 domains",
         label: "Integrated technical coverage",
-        detail: "Software, compiler design, AI, OCR, blockchain, HPC, and architecture advisory.",
+        detail: "Software, language tooling, AI/OCR, blockchain, HPC, and architecture advisory.",
       },
     ] satisfies HeroMetric[],
     tags: [
       "Custom Software",
-      "Web Development",
-      "Mobile Development",
-      "AI Apps",
       "Compiler Design",
       "AI + OCR",
       "Blockchain",
-      "Distributed Systems",
       "HPC",
       "Technical Advisory",
     ],
@@ -407,6 +405,7 @@ export const siteConfig = {
     },
     addressLabel: "Registered Office",
     address: ["Christophorusweg 4", "37075 Göttingen", "Germany"],
+    email: "contact@absolution-gmbh.com",
     companyDetails: [
       { label: "Company", value: "ABS - Alternative Bold Solutions UG (haftungsbeschränkt)" },
       { label: "Base", value: "Göttingen, Germany" },
@@ -434,13 +433,23 @@ export const siteConfig = {
         "Architecture / Technical Advisory",
       ],
       fields: [
-        { label: "Name", name: "name", type: "text", required: true, placeholder: "Your full name" },
+        {
+          label: "Name",
+          name: "name",
+          type: "text",
+          required: true,
+          placeholder: "Your full name",
+          autoComplete: "name",
+          maxLength: 200,
+        },
         {
           label: "Organization",
           name: "organization",
           type: "text",
           required: true,
           placeholder: "Company or institution",
+          autoComplete: "organization",
+          maxLength: 200,
         },
         {
           label: "Email",
@@ -448,6 +457,8 @@ export const siteConfig = {
           type: "email",
           required: true,
           placeholder: "name@company.com",
+          autoComplete: "email",
+          maxLength: 320,
         },
         {
           label: "Project Type",
@@ -461,6 +472,7 @@ export const siteConfig = {
           type: "textarea",
           required: true,
           placeholder: "Describe the technical problem, current constraints, target timeline, and desired outcome.",
+          maxLength: 5000,
         },
       ] satisfies ContactField[],
       selectPlaceholder: "Select project type",

@@ -63,34 +63,36 @@ export function ProcessSection({ process }: ProcessSectionProps) {
           </ol>
         </div>
 
-        <div className="space-y-5 xl:hidden">
+        <ol className="space-y-5 xl:hidden">
           {process.steps.map((step, index) => {
             const Icon = icons[index] ?? ShieldCheck;
             const isLast = index === process.steps.length - 1;
 
             return (
-              <MotionReveal key={step.title} delay={index * 0.04}>
-                <div className="relative pl-16">
-                  {!isLast ? <span className="absolute left-6 top-12 h-[calc(100%+1.25rem)] w-px bg-steel-200" /> : null}
-                  <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-2xl border border-steel-200 bg-white text-accent-500 shadow-panel">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+              <li key={step.title}>
+                <MotionReveal delay={index * 0.04}>
+                  <div className="relative sm:pl-16">
+                    {!isLast ? <span className="absolute left-6 top-12 hidden h-[calc(100%+1.25rem)] w-px bg-steel-200 sm:block" /> : null}
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border border-steel-200 bg-white text-accent-500 shadow-panel sm:absolute sm:left-0 sm:top-0 sm:mb-0">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                    <article className="surface-card p-5">
+                      <div className="flex items-start justify-between gap-4">
+                        <h3 className="text-lg font-semibold tracking-[-0.03em] text-steel-900">{step.title}</h3>
+                        <span className="eyebrow shrink-0 text-steel-400">0{index + 1}</span>
+                      </div>
+                      <p className="mt-3 text-sm leading-6 text-steel-500">{step.description}</p>
+                      <div className="mt-4 border-t border-steel-200 pt-4">
+                        <p className="eyebrow text-accent-600">Deliverable</p>
+                        <p className="mt-2 text-sm leading-6 text-steel-500">{step.deliverable}</p>
+                      </div>
+                    </article>
                   </div>
-                  <article className="surface-card p-5">
-                    <div className="flex items-center justify-between gap-4">
-                      <h3 className="text-lg font-semibold tracking-[-0.03em] text-steel-900">{step.title}</h3>
-                      <span className="eyebrow text-steel-400">0{index + 1}</span>
-                    </div>
-                    <p className="mt-3 text-sm leading-6 text-steel-500">{step.description}</p>
-                    <div className="mt-4 border-t border-steel-200 pt-4">
-                      <p className="eyebrow text-accent-600">Deliverable</p>
-                      <p className="mt-2 text-sm leading-6 text-steel-500">{step.deliverable}</p>
-                    </div>
-                  </article>
-                </div>
-              </MotionReveal>
+                </MotionReveal>
+              </li>
             );
           })}
-        </div>
+        </ol>
       </div>
     </section>
   );

@@ -35,7 +35,7 @@ export function CapabilitiesSection({ capabilities }: CapabilitiesSectionProps) 
                 {capabilities.groups.map((group) => (
                   <StaggerItem key={group.title}>
                     <article className="rounded-[26px] border border-white/10 bg-white/[0.04] p-5">
-                      <p className="eyebrow text-white/42">{group.title}</p>
+                      <p className="eyebrow text-white/55">{group.title}</p>
                       <p className="mt-3 text-lg font-semibold text-white">{group.summary}</p>
                       <div className="mt-5 flex flex-wrap gap-2">
                         {group.items.map((item) => (

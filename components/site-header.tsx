@@ -35,6 +35,19 @@ export function SiteHeader({ brand, navigation, cta, navigationLabel }: SiteHead
   }, []);
 
   useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  useEffect(() => {
     const syncLocationState = () => {
       if (window.location.pathname !== "/") {
         setActiveHref(window.location.pathname);
@@ -132,9 +145,9 @@ export function SiteHeader({ brand, navigation, cta, navigationLabel }: SiteHead
       }`}
     >
       <div className="shell">
-        <div className={`flex items-center justify-between gap-4 transition-[padding] duration-300 ${isScrolled ? "py-3" : "py-4"}`}>
+        <div className={`flex items-center justify-between gap-4 transition-[padding] duration-300 ${isScrolled ? "py-2" : "py-2.5"}`}>
           <Link href="/" aria-label={brand.shortName} className="min-w-0 shrink-0">
-            <LogoMark brand={brand} theme="light" compact withBadge />
+            <LogoMark brand={brand} theme="light" compact priority withBadge />
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex" aria-label={navigationLabel}>
@@ -146,7 +159,7 @@ export function SiteHeader({ brand, navigation, cta, navigationLabel }: SiteHead
                   key={item.href}
                   href={normalizeHref(item.href)}
                   className={`${baseLinkClass} ${isActive ? "text-steel-900" : ""}`}
-                  aria-current={isActive ? "page" : undefined}
+                  aria-current={isActive ? "location" : undefined}
                   onClick={handleNavigationClick(item.href)}
                 >
                   {item.label}
@@ -200,7 +213,7 @@ export function SiteHeader({ brand, navigation, cta, navigationLabel }: SiteHead
                         ? "bg-steel-100 text-steel-900 shadow-[inset_0_0_0_1px_rgba(47,111,237,0.2)]"
                         : "text-steel-600 hover:bg-steel-50 hover:text-steel-900"
                     }`}
-                    aria-current={isActive ? "page" : undefined}
+                    aria-current={isActive ? "location" : undefined}
                     onClick={handleNavigationClick(item.href)}
                   >
                     {item.label}
