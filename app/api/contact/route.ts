@@ -128,6 +128,8 @@ export async function POST(request: Request) {
     message,
   ].join("\n");
 
+  const { autoReply } = siteConfig.contact;
+
   try {
     // Load worker-mailer's ESM build explicitly. It only works in the Workers
     // runtime (production / `npm run preview`), not under `next dev`, because it
@@ -135,16 +137,20 @@ export async function POST(request: Request) {
     // (a CJS `require` of it becomes a throwing stub in the ESM Worker bundle).
     const { WorkerMailer } = await import("worker-mailer/dist/index.mjs");
 
-    await WorkerMailer.send(
-      {
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        credentials: { username: gmailUser, password: appPassword },
-        authType: ["plain", "login"],
-        socketTimeoutMs: 10_000,
-      },
-      {
+    // One connection, two messages: the inquiry to ABS, then an acknowledgement
+    // to the visitor. Reusing the connection avoids a second auth handshake.
+    const mailer = await WorkerMailer.connect({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      credentials: { username: gmailUser, password: appPassword },
+      authType: ["plain", "login"],
+      socketTimeoutMs: 10_000,
+    });
+
+    try {
+      // 1) Notify ABS — the critical delivery. A failure here fails the request.
+      await mailer.send({
         // Gmail requires the From address to be the authenticated account; the
         // visitor's address goes in Reply-To so a reply reaches them directly.
         from: { name: fromName, email: gmailUser },
@@ -152,8 +158,32 @@ export async function POST(request: Request) {
         reply: { name, email },
         subject,
         text: textBody,
-      },
-    );
+      });
+
+      // 2) Acknowledge the visitor — best-effort. The inquiry is already
+      //    delivered, so a failure here must not fail the request.
+      try {
+        const replyBody = [
+          autoReply.greeting.replace("{name}", name),
+          "",
+          autoReply.paragraphs.join("\n\n"),
+          "",
+          autoReply.signature,
+        ].join("\n");
+
+        await mailer.send({
+          from: { name: autoReply.fromName, email: gmailUser },
+          to: { name, email },
+          reply: toEmail,
+          subject: autoReply.subject,
+          text: replyBody,
+        });
+      } catch (autoReplyError) {
+        console.error("Auto-reply failed (inquiry was still delivered):", autoReplyError);
+      }
+    } finally {
+      await mailer.close().catch(() => {});
+    }
   } catch (error) {
     console.error("Gmail SMTP delivery failed:", error);
     if (process.env.CONTACT_DEBUG === "1") {
