@@ -11,3 +11,6 @@ out/
 
 # OpenNext
 .open-next
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo

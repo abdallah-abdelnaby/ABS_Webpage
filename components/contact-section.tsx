@@ -53,7 +53,9 @@ export function ContactSection({ contact }: ContactSectionProps) {
                 honeypotName={contact.form.honeypotName}
                 selectPlaceholder={contact.form.selectPlaceholder}
                 submitLabel={contact.form.submitLabel}
+                submittingLabel={contact.form.submittingLabel}
                 successLabel={contact.form.successLabel}
+                errorLabel={contact.form.errorLabel}
               />
             </div>
           </MotionReveal>

@@ -465,8 +465,23 @@ export const siteConfig = {
       ] satisfies ContactField[],
       selectPlaceholder: "Select project type",
       submitLabel: "Send Inquiry",
+      submittingLabel: "Sending…",
       successLabel:
-        "Inquiry captured locally. Connect this form to an API route or CRM endpoint to enable delivery.",
+        "Thank you — your inquiry has been sent. ABS will respond with a practical next step shortly.",
+      errorLabel:
+        "Your inquiry couldn't be sent just now. Please try again, or email us directly.",
+    },
+    autoReply: {
+      fromName: "ABS — Alternative Bold Solutions",
+      subject: "We've received your inquiry — ABS",
+      // {name} is replaced with the sender's name.
+      greeting: "Hello {name},",
+      paragraphs: [
+        "Thank you for reaching out to ABS — Alternative Bold Solutions. Your inquiry has reached us and is being reviewed.",
+        "We read every message personally and will respond with a practical next step grounded in technical feasibility, architecture, and delivery sequencing. You can expect to hear from us shortly.",
+        "If anything urgent comes up in the meantime, simply reply to this email.",
+      ],
+      signature: "— The ABS Team",
     },
   },
   legal: {

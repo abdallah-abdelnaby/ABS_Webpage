@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark light;
+  /* The UI is light-only; keep native controls (select popup, autofill,
+     scrollbars) light so they stay legible on dark-mode devices. */
+  color-scheme: light;
 }
 
 html,
