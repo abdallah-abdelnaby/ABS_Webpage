@@ -65,6 +65,16 @@ export type FeaturedEngagement = {
   variant: FeaturedEngagementVariant;
 };
 
+export type Project = {
+  name: string;
+  category: string;
+  status: string;
+  description: string;
+  tags: string[];
+  href: string;
+  ctaLabel: string;
+};
+
 export type ProcessStep = {
   title: string;
   description: string;
@@ -116,6 +126,7 @@ export const siteConfig = {
   },
   navigation: [
     { label: "Services", href: "#services" },
+    { label: "Projects", href: "#projects" },
     { label: "Process", href: "#process" },
     { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
@@ -237,6 +248,24 @@ export const siteConfig = {
         icon: "consulting",
       },
     ] satisfies Service[],
+  },
+  projects: {
+    eyebrow: "Projects",
+    title: "Systems we build and run ourselves.",
+    description:
+      "Alongside client delivery, ABS develops and operates its own products and research systems. Where a project is public, you can open it and judge the engineering directly.",
+    items: [
+      {
+        name: "ABS AI Research Journal",
+        category: "Autonomous AI research",
+        status: "Live",
+        description:
+          "An autonomous AI scientist that chooses its research questions, runs the experiments on containerised GPU compute, and publishes the results as open-access papers. Every paper ships with its full reproducibility bundle: code, container, seeds, logs, and the agent's reasoning trace. All content is AI-generated.",
+        tags: ["Autonomous AI", "GPU compute", "Reproducible ML", "Open access"],
+        href: "https://journal.absolution-gmbh.com/",
+        ctaLabel: "Visit the Journal",
+      },
+    ] satisfies Project[],
   },
   capabilities: {
     eyebrow: "Capability Architecture",
@@ -570,6 +599,7 @@ export const siteConfig = {
       "Custom software, compiler design, AI workflows, OCR digitization systems, blockchain components, HPC support, and technical advisory for serious digital programs.",
     quickLinks: [
       { label: "Services", href: "#services" },
+      { label: "Projects", href: "#projects" },
       { label: "Process", href: "#process" },
       { label: "About", href: "#about" },
       { label: "Contact", href: "#contact" },

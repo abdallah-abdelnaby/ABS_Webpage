@@ -107,6 +107,77 @@ export function HeroArchitectureIllustration() {
   );
 }
 
+export function ProjectPreviewIllustration({ host }: { host: string }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="relative h-full min-h-[16rem] overflow-hidden rounded-[24px] border border-white/10 bg-midnight-900"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(77,134,255,0.2),transparent_32%),radial-gradient(circle_at_88%_86%,rgba(77,134,255,0.12),transparent_28%)]" />
+      <div className="absolute inset-0 grid-dark opacity-35" />
+
+      <div className="relative flex h-full flex-col p-5 sm:p-7">
+        <div className="flex flex-1 flex-col overflow-hidden rounded-[20px] border border-white/10 bg-midnight-800/90 shadow-[0_25px_80px_-44px_rgba(0,0,0,0.7)]">
+          <div className="flex items-center gap-3 border-b border-white/10 px-4 py-3">
+            <div className="flex shrink-0 gap-1.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-accent-400" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/45" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
+            </div>
+            <span className="min-w-0 truncate rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[0.68rem] text-white/70 [font-family:var(--font-mono)]">
+              {host}
+            </span>
+          </div>
+
+          <div className="grid flex-1 gap-5 p-5 sm:grid-cols-[1.5fr_1fr]">
+            <div className="flex flex-col gap-4">
+              <span className="block h-2 w-20 rounded-full bg-accent-400/70" />
+              <div className="space-y-2.5">
+                <span className="block h-3.5 w-[94%] rounded-full bg-white/55" />
+                <span className="block h-3.5 w-[66%] rounded-full bg-white/35" />
+              </div>
+              <div className="space-y-2">
+                {["w-full", "w-[88%]", "w-[95%]", "w-[60%]"].map((width) => (
+                  <span key={width} className={`block h-2 rounded-full bg-white/[0.12] ${width}`} />
+                ))}
+              </div>
+              <div className="hidden space-y-2 lg:block">
+                {["w-[92%]", "w-full", "w-[48%]"].map((width) => (
+                  <span key={width} className={`block h-2 rounded-full bg-white/[0.12] ${width}`} />
+                ))}
+              </div>
+              <div className="mt-auto flex gap-2 pt-1">
+                <span className="h-5 w-14 rounded-full border border-white/10 bg-white/[0.06]" />
+                <span className="h-5 w-16 rounded-full border border-accent-400/30 bg-accent-400/10" />
+                <span className="h-5 w-12 rounded-full border border-white/10 bg-white/[0.06]" />
+              </div>
+            </div>
+
+            <div className="hidden flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:flex">
+              <div className="flex items-center justify-between">
+                <span className="h-2 w-14 rounded-full bg-white/25" />
+                <div className="flex gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-accent-400" />
+                  <span className="h-2 w-2 rounded-full bg-white/30" />
+                </div>
+              </div>
+              <div className="flex min-h-24 flex-1 items-end gap-2">
+                {["h-[42%]", "h-[64%]", "h-[50%]", "h-[86%]", "h-[58%]", "h-[74%]"].map((height, index) => (
+                  <span
+                    key={height}
+                    className={`flex-1 rounded-t-md ${index === 3 ? "bg-accent-400/80" : "bg-white/15"} ${height}`}
+                  />
+                ))}
+              </div>
+              <div className="tech-line h-px w-full bg-gradient-to-r from-transparent via-accent-400/70 to-transparent" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function EngagementIllustration({
   variant,
   label,
