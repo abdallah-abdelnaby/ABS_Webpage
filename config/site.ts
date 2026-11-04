@@ -17,14 +17,10 @@ export type HeroMetric = {
   detail: string;
 };
 
-export type HeroVisualModule = {
-  label: string;
-  detail: string;
-};
-
 export type ServiceIcon = "code" | "ai" | "blockchain" | "hpc" | "consulting" | "compiler";
 
 export type Service = {
+  id: string;
   title: string;
   description: string;
   impact: string;
@@ -38,41 +34,26 @@ export type TrustItem = {
   marker: string;
 };
 
-export type CapabilityGroup = {
-  title: string;
-  summary: string;
-  items: string[];
-};
-
-export type CapabilityMatrixRow = {
-  label: string;
-  architecture: string;
-  implementation: string;
-  operations: string;
-};
-
-export type FeaturedEngagementVariant = "digitization" | "network";
-
-export type FeaturedEngagement = {
-  organization: string;
-  sector: string;
-  label: string;
-  status: string;
-  summary: string;
-  detail: string;
-  marker: string;
-  scope: string[];
-  variant: FeaturedEngagementVariant;
-};
-
 export type Project = {
   name: string;
   category: string;
   status: string;
   description: string;
   tags: string[];
-  href: string;
-  ctaLabel: string;
+  /** Public URL. Projects without one show a label instead of a link. */
+  href?: string;
+  ctaLabel?: string;
+  /** Shown in the preview frame when there is no public URL. */
+  previewLabel: string;
+};
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  initials: string;
+  summary: string;
+  background: string[];
+  focus: string[];
 };
 
 export type ProcessStep = {
@@ -108,16 +89,34 @@ export type ContactMap = {
   externalUrl: string;
 };
 
+export type LegalSection = {
+  title: string;
+  paragraphs: string[];
+};
+
+const company = {
+  name: "ABS - Alternative Bold Solutions UG (haftungsbeschränkt)",
+  street: "Christophorusweg 4",
+  postalCodeCity: "37075 Göttingen",
+  email: "contact@absolution-gmbh.com",
+  managingDirector: "Abdallah Mohammed Abdallah Abdelnaby",
+  registerCourt: "Amtsgericht Göttingen",
+  registerNumber: "HRB 208086",
+  vatId: "DE460537781",
+} as const;
+
 export const siteConfig = {
+  url: "https://absolution-gmbh.com",
+  company,
   metadata: {
-    title: "ABS | Alternative Bold Solutions",
+    title: "ABS | AI, OCR and compiler engineering from Göttingen",
     description:
-      "ABS is a premium software engineering consultancy and product studio delivering custom software, AI, OCR digitization workflows, blockchain systems, HPC support, and technical advisory for complex digital programs.",
+      "ABS is a Göttingen software company building document AI and OCR pipelines, LLM assistants, HPC-backed ML experiments, and compiler and blockchain tooling for research institutions and companies.",
   },
   brand: {
     shortName: "ABS",
     strapline: "Alternative Bold Solutions",
-    fullName: "ABS - Alternative Bold Solutions UG (haftungsbeschränkt)",
+    fullName: company.name,
   },
   a11y: {
     skipToContentLabel: "Skip to content",
@@ -127,339 +126,317 @@ export const siteConfig = {
   navigation: [
     { label: "Services", href: "#services" },
     { label: "Projects", href: "#projects" },
+    { label: "Team", href: "#team" },
     { label: "Process", href: "#process" },
-    { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
   ] satisfies NavItem[],
   hero: {
-    eyebrow: "Engineering Consultancy for Complex Digital Systems",
-    headline: "Precision software delivery for organizations operating at technical depth.",
+    eyebrow: "Software and AI engineering · Göttingen, Germany",
+    headline: "Reliable AI and compiler engineering for research and industry.",
     subheadline:
-      "ABS partners with enterprises, research institutions, and serious product teams to architect, implement, and operationalize advanced systems across software, AI, OCR, blockchain, and compute-intensive infrastructure.",
+      "ABS builds document AI and OCR pipelines, LLM assistants, GPU-backed ML experiments, and compiler and blockchain tooling. We work with universities, research infrastructures and technology companies, and we publish what we can as open source.",
     ctas: [
-      { label: "Discuss a Project", href: "#contact", variant: "primary" },
-      { label: "Explore Services", href: "#services", variant: "secondary" },
+      { label: "Discuss a project", href: "#contact", variant: "primary" },
+      { label: "See our work", href: "#projects", variant: "secondary" },
     ] satisfies HeroCta[],
     metrics: [
       {
-        value: "Completed",
-        label: "Institutional delivery",
-        detail: "Delivered application-related work for the University of Göttingen.",
+        value: "USD 120k",
+        label: "Stellar Community Fund award",
+        detail: "Build award (SCF #41) for SORDEC, our Soroban WebAssembly decompiler.",
       },
       {
-        value: "Accepted",
-        label: "Commercial collaboration scope",
-        detail: "A technical collaboration proposal was accepted for Stellar.",
+        value: "Delivered",
+        label: "University of Göttingen",
+        detail: "AI page-segmentation editor for the Institut für Digital Humanities, 2026.",
       },
       {
-        value: "6 domains",
-        label: "Integrated technical coverage",
-        detail: "Software, language tooling, AI/OCR, blockchain, HPC, and architecture advisory.",
+        value: "Live",
+        label: "AI Research Journal",
+        detail: "Our autonomous research pipeline publishes papers with full reproducibility bundles.",
       },
     ] satisfies HeroMetric[],
-    tags: [
-      "Custom Software",
-      "Compiler Design",
-      "AI + OCR",
-      "Blockchain",
-      "HPC",
-      "Technical Advisory",
-    ],
-    visual: {
-      badge: "Architecture-first execution across product, data, and infrastructure.",
-      modules: [
-        { label: "Document Ingestion", detail: "OCR, parsing, classification" },
-        { label: "Application Layer", detail: "Product logic, APIs, portals" },
-        { label: "Model Orchestration", detail: "AI workflows, validation, routing" },
-        { label: "Operations & Control", detail: "Observability, governance, support" },
-      ] satisfies HeroVisualModule[],
-      footer: "Structured delivery from architecture framing to operational support.",
-    },
+    tags: ["Document AI + OCR", "LLM / RAG assistants", "Compilers", "Blockchain tooling", "HPC + GPU", "Technical advisory"],
   },
   trust: {
-    eyebrow: "Selected References",
-    title: "Credibility presented with restraint.",
+    eyebrow: "Track record",
+    title: "Work delivered, funded and in production.",
     description:
-      "A concise signal set for institutional and commercial work already delivered or commercially accepted. No logo wall, no inflated claims.",
+      "ABS was registered in Göttingen in January 2026. The team behind it has built research software, OCR pipelines and compilers for several years before that.",
     items: [
       {
         name: "University of Göttingen",
-        context: "Digital humanities and application-related delivery",
+        context: "Client project · Institut für Digital Humanities",
         statement:
-          "Completed and delivered work on application-related tasks in the field of digital humanities.",
-        marker: "Completed engagement",
+          "eManuskript editor: multi-model AI page segmentation for historical manuscripts, with exports to PAGE-XML, TEI, IIIF and COCO. Delivered January to March 2026.",
+        marker: "Delivered",
       },
       {
-        name: "Stellar (U.S. Company)",
-        context: "Technical collaboration proposal",
+        name: "Stellar Development Foundation",
+        context: "Stellar Community Fund #41 · Build Award",
         statement:
-          "Accepted proposal for technical collaboration. This represents awarded scope, not a completed delivery.",
-        marker: "Accepted proposal",
+          "SORDEC, a decompiler that turns Soroban WebAssembly smart contracts back into readable source for audits and reviews. USD 120k award; first milestones delivered in 2026.",
+        marker: "Funded, in progress",
+      },
+      {
+        name: "Hyperledger Solang",
+        context: "Stellar Community Fund · Public Goods",
+        statement:
+          "Maintenance of the Soroban target in the open-source Hyperledger Solang compiler, which compiles Solidity to Soroban WebAssembly.",
+        marker: "Open source",
+      },
+      {
+        name: "Team experience before ABS",
+        context: "Research software, ML and compilers",
+        statement:
+          "OCR-D workflows on HPC (OPERANDI, DFG-funded) and RAG assistants for libraries (LibraryAI); manuscript layout segmentation (eManuSkript / Mergen) and multimodal ML research at NYU Abu Dhabi; the Hyperledger Solang compiler, IOTA Foundation R&D, the Web3 Foundation's Solang Playground and Kubernetes for a German government rail project.",
+        marker: "Team background",
       },
     ] satisfies TrustItem[],
-    highlights: ["Germany-based legal entity", "Founder-led execution", "Enterprise and academic fit"],
+    highlights: ["Registered in Göttingen (HRB 208086)", "Open-source compiler work", "Research and industry clients"],
   },
   services: {
     eyebrow: "Services",
-    title: "Capabilities structured around delivery, not buzzwords.",
+    title: "What we build.",
     description:
-      "ABS is most effective where the scope is technically non-trivial, the constraints matter, and architectural quality has to survive beyond launch week.",
+      "We do our best work where the problem is technically hard and the result has to keep working after handover.",
     items: [
       {
-        title: "Custom Software Systems",
+        id: "service-ai-ocr",
+        title: "Document AI, OCR and digitisation",
         description:
-          "Architecture and implementation for web platforms, internal tools, APIs, and product-facing systems with maintainable foundations.",
-        impact: "Build systems that remain coherent as teams, features, and operational demands grow.",
-        icon: "code",
-      },
-      {
-        title: "AI, OCR, and Digitization Workflows",
-        description:
-          "Applied AI pipelines, document intelligence, OCR processing, and digitization workflows for structured operational use rather than demos.",
-        impact: "Turn document-heavy processes into auditable, scalable pipelines with measurable throughput.",
+          "OCR and handwritten text recognition, layout analysis and post-OCR correction for historical and business documents, with standard exports such as PAGE-XML, TEI and IIIF.",
+        impact: "Searchable, structured text from scans, with quality you can measure.",
         icon: "ai",
       },
       {
-        title: "Compiler Design and Language Tooling",
+        id: "service-llm",
+        title: "LLM and RAG assistants",
         description:
-          "Design and implementation of parsers, intermediate representations, semantic analysis, code generation, and domain-specific language tooling for technically demanding systems.",
-        impact: "Create language and transformation layers that improve correctness, automation, and long-term control over complex technical workflows.",
+          "Retrieval-augmented assistants that answer from your own documents and cite their sources, running on your infrastructure or a provider you choose.",
+        impact: "Answers grounded in your data, with sources a person can check.",
+        icon: "consulting",
+      },
+      {
+        id: "service-compiler",
+        title: "Compilers and language tooling",
+        description:
+          "Parsers, intermediate representations, code generation, decompilers and developer tooling, including work on the Hyperledger Solang compiler.",
+        impact: "Correct translation between languages, and tools that make code reviewable.",
         icon: "compiler",
       },
       {
-        title: "Blockchain and Trust Infrastructure",
+        id: "service-blockchain",
+        title: "Blockchain and smart-contract tooling",
         description:
-          "Technical implementation and analysis for distributed workflows, trust layers, integrations, and blockchain-based system components.",
-        impact: "Introduce distributed system patterns where they serve the operating model instead of distracting from it.",
+          "Smart-contract compilers, decompilers and analysis tools for the Stellar/Soroban ecosystem and other WebAssembly-based chains.",
+        impact: "Contracts that can be audited and understood after deployment.",
         icon: "blockchain",
       },
       {
-        title: "HPC and Performance-Oriented Computing",
+        id: "service-hpc",
+        title: "HPC and GPU workloads",
         description:
-          "Support for compute-intensive workflows, performance-aware architecture, and technically demanding research or operational environments.",
-        impact: "Improve throughput, system design, and deployment decisions where compute cost and performance matter.",
+          "Running OCR and ML workloads on GPU clusters: containerised jobs, Slurm scheduling, resource prediction and reproducible experiment pipelines.",
+        impact: "Lower compute cost and results you can rerun.",
         icon: "hpc",
       },
       {
-        title: "Architecture and Technical Advisory",
+        id: "service-software",
+        title: "Custom software and technical advisory",
         description:
-          "Senior technical guidance for discovery, system planning, implementation sequencing, vendor evaluation, and delivery risk reduction.",
-        impact: "Reduce ambiguity early so delivery decisions remain defensible under real-world constraints.",
-        icon: "consulting",
+          "Web platforms, APIs and internal tools, plus architecture reviews and project scoping when you need a second technical opinion.",
+        impact: "Systems your own team can maintain.",
+        icon: "code",
       },
     ] satisfies Service[],
   },
   projects: {
     eyebrow: "Projects",
-    title: "Systems we build and run ourselves.",
+    title: "Our own products and research.",
     description:
-      "Alongside client delivery, ABS develops and operates its own products and research systems. Where a project is public, you can open it and judge the engineering directly.",
+      "Alongside client work, ABS builds its own tools. Where a project is public, you can open it and judge the engineering yourself.",
     items: [
       {
         name: "ABS AI Research Journal",
         category: "Autonomous AI research",
         status: "Live",
         description:
-          "An autonomous AI scientist that chooses its research questions, runs the experiments on containerised GPU compute, and publishes the results as open-access papers. Every paper ships with its full reproducibility bundle: code, container, seeds, logs, and the agent's reasoning trace. All content is AI-generated.",
+          "An autonomous AI scientist that chooses research questions, preregisters and runs GPU experiments, reproduces its own results, and publishes them as open-access papers. Every paper ships with its reproducibility bundle: code, container, seeds, logs and the agent's reasoning trace. All content is AI-generated.",
         tags: ["Autonomous AI", "GPU compute", "Reproducible ML", "Open access"],
         href: "https://journal.absolution-gmbh.com/",
         ctaLabel: "Visit the Journal",
+        previewLabel: "journal.absolution-gmbh.com",
+      },
+      {
+        name: "SORDEC",
+        category: "Smart-contract decompiler",
+        status: "In development",
+        description:
+          "A decompiler for Soroban smart contracts on Stellar. It turns deployed WebAssembly back into readable code so auditors and developers can review contracts whose source is not published. Funded by a Stellar Community Fund build award.",
+        tags: ["WebAssembly", "Decompilation", "Soroban", "Security review"],
+        previewLabel: "sordec · soroban wasm → source",
+      },
+      {
+        name: "Hyperledger Solang: Soroban target",
+        category: "Open-source compiler",
+        status: "Open source",
+        description:
+          "Solang compiles Solidity smart contracts to WebAssembly. We maintain its Soroban target so Solidity developers can deploy on Stellar, with support from the Stellar Community Fund.",
+        tags: ["Compiler", "Solidity", "Soroban", "Open source"],
+        href: "https://github.com/hyperledger-solang/solang",
+        ctaLabel: "View on GitHub",
+        previewLabel: "github.com/hyperledger-solang/solang",
       },
     ] satisfies Project[],
   },
-  capabilities: {
-    eyebrow: "Capability Architecture",
-    title: "Breadth shown as an operating system for delivery.",
+  team: {
+    eyebrow: "Team",
+    title: "The people doing the work.",
     description:
-      "The goal is not to look broad. The goal is to cover adjacent technical domains with enough rigor that clients do not need a different specialist for every architectural seam.",
-    focusAreas: [
-      "Product engineering",
-      "Data and AI workflows",
-      "Document intelligence",
-      "Distributed systems",
-      "Compute-intensive infrastructure",
-      "Technical due diligence",
-    ],
-    groups: [
+      "A small team of engineers from Göttingen's research software community, working with trusted freelancers on larger projects.",
+    members: [
       {
-        title: "Build",
-        summary: "System architecture, implementation, and release planning for new products or internal platforms.",
-        items: ["Web platforms", "APIs", "Operational portals", "Mobile extensions"],
-      },
-      {
-        title: "Integrate",
-        summary: "Applied AI, OCR, and cross-system workflow design where data has to move cleanly across boundaries.",
-        items: ["OCR pipelines", "AI routing", "Workflow automation", "Validation layers"],
-      },
-      {
-        title: "Scale",
-        summary: "Performance-aware engineering and infrastructure thinking for systems under technical load.",
-        items: ["HPC support", "Compute strategy", "Operational visibility", "Resilience planning"],
-      },
-      {
-        title: "Advise",
-        summary: "Technical framing and decision support when scope, sequencing, or architecture quality is at risk.",
-        items: ["Discovery", "Architecture reviews", "Delivery planning", "Technical audits"],
-      },
-    ] satisfies CapabilityGroup[],
-    matrix: {
-      title: "Delivery coverage",
-      description: "Where ABS typically contributes across the lifecycle.",
-      rows: [
-        {
-          label: "Software Platforms",
-          architecture: "System design, API boundaries, product scoping",
-          implementation: "Application development, integrations, release management",
-          operations: "Maintenance planning, support, improvement backlog",
-        },
-        {
-          label: "AI and OCR",
-          architecture: "Pipeline design, evaluation criteria, control points",
-          implementation: "OCR ingestion, AI orchestration, workflow automation",
-          operations: "Monitoring, exception handling, model/process refinement",
-        },
-        {
-          label: "Blockchain Systems",
-          architecture: "Trust model analysis, protocol fit, workflow design",
-          implementation: "Distributed components, integrations, transaction flows",
-          operations: "Technical governance, security review, ongoing adaptation",
-        },
-        {
-          label: "HPC and Compute",
-          architecture: "Performance-aware system planning and resource strategy",
-          implementation: "Compute workflow support and execution design",
-          operations: "Optimization, observability, operational tuning",
-        },
-      ] satisfies CapabilityMatrixRow[],
-    },
-  },
-  featuredWork: {
-    eyebrow: "Selected Engagements",
-    title: "Engagements framed like serious project summaries.",
-    description:
-      "A restrained view of work signals, with clear distinctions between completed delivery and commercially accepted future scope.",
-    items: [
-      {
-        organization: "University of Göttingen",
-        sector: "Academic / Research Collaboration",
-        label: "Completed",
-        status: "Delivered and accepted institutional scope",
+        name: "Abdallah Abdelnaby",
+        role: "Software Engineer · PhD Candidate in Computer Science",
+        initials: "AA",
         summary:
-          "Application-related work delivered in a digital humanities context with emphasis on practical implementation quality.",
-        detail: "Commercially documented completed delivery. Presented here as executed work, not pipeline marketing.",
-        marker: "Completed",
-        scope: ["Digital humanities", "Application support", "Structured delivery"],
-        variant: "digitization",
+          "Builds LLM assistants, OCR pipelines and HPC workflows for research libraries. His PhD at the University of Göttingen is on reliable and efficient LLM assistants for scholarly libraries on shared HPC infrastructure.",
+        background: [
+          "PhD candidate, University of Göttingen (GAUSS)",
+          "M.Sc. Applied Computer Science, University of Göttingen",
+          "B.Sc. Computer Engineering, American University in Cairo",
+        ],
+        focus: ["LLM / RAG", "OCR-D on HPC", "Research software"],
       },
       {
-        organization: "Stellar (U.S. Company)",
-        sector: "Commercial Technical Collaboration",
-        label: "Accepted Proposal",
-        status: "Awarded scope accepted for future collaboration",
+        name: "Mohamed Basuony",
+        role: "Software Engineer · PhD Candidate in Digital Humanities",
+        initials: "MB",
         summary:
-          "Technical collaboration proposal accepted for a significant commercial engagement with a U.S.-based company.",
-        detail: "Status is an accepted proposal. It is intentionally distinguished from completed delivery.",
-        marker: "Accepted",
-        scope: ["Systems planning", "Technical collaboration", "Implementation roadmap"],
-        variant: "network",
+          "Builds PyTorch pipelines for manuscript image analysis and layout segmentation, and containerised services to run them. Co-author of the eManuSkript palaeography tools presented at DHd 2026.",
+        background: [
+          "PhD candidate in Digital Humanities, University of Göttingen",
+          "M.Sc. Applied Computer Science, University of Göttingen",
+          "B.Sc. Computer Science, American University in Cairo",
+          "Previously: research assistant at NYU Abu Dhabi, IBM Consulting",
+        ],
+        focus: ["Computer vision", "Layout analysis", "ML engineering"],
       },
-    ] satisfies FeaturedEngagement[],
+      {
+        name: "Salaheldin Soliman",
+        role: "Software Engineer · Infrastructure and Security",
+        initials: "SS",
+        summary:
+          "Spent about three and a half years on the Hyperledger Solang compiler, leading the work on its Soroban target. Works on infrastructure, security and system integration.",
+        background: [
+          "M.Sc. Applied Computer Science, University of Göttingen",
+          "B.Sc. Computer Engineering, American University in Cairo",
+          "Previously: IOTA Foundation R&D, Web3 Foundation (Solang Playground), Kubernetes for a German government rail project, Linux Foundation mentee",
+        ],
+        focus: ["Compilers", "Infrastructure", "Security"],
+      },
+    ] satisfies TeamMember[],
   },
   process: {
     eyebrow: "Process",
-    title: "A delivery methodology built for complex scopes.",
+    title: "How a project runs.",
     description:
-      "ABS uses a structured sequence that keeps architecture decisions, implementation work, and operational constraints aligned.",
+      "Every project follows the same five steps, so you know what you get at each stage.",
     steps: [
       {
         title: "Discovery",
-        description: "Clarify objectives, constraints, stakeholders, and risk before committing to build paths.",
-        deliverable: "Scope framing and technical brief",
+        description: "We clarify goals, constraints, data and risks before proposing how to build anything.",
+        deliverable: "Scope and technical brief",
       },
       {
         title: "Architecture",
-        description: "Define the system model, interfaces, delivery phases, and control points that the project will rely on.",
-        deliverable: "Architecture and sequencing plan",
+        description: "We define the system, its interfaces and the delivery phases, and agree on how success will be measured.",
+        deliverable: "Architecture and project plan",
       },
       {
         title: "Implementation",
-        description: "Build the core system with explicit quality standards, validation steps, and maintainability in mind.",
-        deliverable: "Working system increments",
+        description: "We build in small increments with tests, code review and regular demos.",
+        deliverable: "Working increments",
       },
       {
         title: "Validation",
-        description: "Refine the solution through measured feedback loops, technical checks, and targeted iteration.",
-        deliverable: "Validated release candidate",
+        description: "We measure the result against the agreed criteria, such as OCR accuracy, answer quality or throughput, and fix what falls short.",
+        deliverable: "Evaluated release",
       },
       {
-        title: "Operate",
-        description: "Deploy, support, and improve the system with operational visibility and disciplined follow-through.",
-        deliverable: "Operational handover and support model",
+        title: "Handover",
+        description: "We deploy, document and hand over, or keep running and supporting the system if you prefer.",
+        deliverable: "Documentation and support plan",
       },
     ] satisfies ProcessStep[],
   },
   about: {
     eyebrow: "About ABS",
-    title: "Technical depth without theatre.",
+    title: "A Göttingen software company with research roots.",
     description:
-      "ABS is designed for clients who need clarity under complexity: not a generic agency, not a slideware consultancy, and not a trend-driven product shop.",
-    quote: "The job is to reduce uncertainty while increasing execution quality.",
-    quoteSource: "ABS operating principle",
+      "ABS - Alternative Bold Solutions was registered in Göttingen in January 2026. Our team comes from university research software, digital humanities and open-source compiler projects, and we bring that standard of evidence to client work.",
+    quote: "If a result cannot be reproduced, it is not finished.",
+    quoteSource: "How we work",
     principles: [
       {
-        title: "Clarity Before Velocity",
-        description: "Speed matters, but only after the architecture, risks, and delivery sequence are legible enough to defend.",
+        title: "Measure, then claim",
+        description: "We agree on metrics up front and report results honestly, including when something does not work.",
       },
       {
-        title: "Engineering Over Theatre",
-        description: "Visual polish and clear communication matter, but the core value is rigorous implementation and responsible system design.",
+        title: "Reproducible by default",
+        description: "Containers, pinned versions, logged seeds and documented pipelines, so anyone can rerun the work.",
       },
       {
-        title: "Built for Long-Term Use",
-        description: "Solutions are structured to survive iteration, handover, maintenance, and organizational change.",
+        title: "Built to hand over",
+        description: "Clean code, documentation and open standards, so your team is not locked in to us.",
       },
     ] satisfies Principle[],
   },
   contact: {
     eyebrow: "Contact",
-    title: "Discuss the scope before complexity compounds.",
+    title: "Tell us about your project.",
     description:
-      "Send a concise brief. ABS will respond with a practical next step grounded in technical feasibility, architecture, and delivery sequencing.",
+      "Send a short description of the problem. We reply personally, with questions or a suggested next step.",
     banner: {
-      title: "Need senior engineering input early?",
+      title: "Not sure yet what you need?",
       description:
-        "ABS is most useful in architecture-heavy initiatives, pre-project scoping, rescue situations, and technically difficult delivery programs.",
-      ctaLabel: "Open the Inquiry Form",
+        "Early conversations are often the most useful: scoping a digitisation project, checking whether an LLM assistant fits, or reviewing an existing architecture.",
+      ctaLabel: "Open the inquiry form",
       ctaHref: "#contact-form",
     },
-    addressLabel: "Registered Office",
-    address: ["Christophorusweg 4", "37075 Göttingen", "Germany"],
-    email: "contact@absolution-gmbh.com",
+    addressLabel: "Registered office",
+    address: [company.street, company.postalCodeCity, "Germany"],
+    email: company.email,
     companyDetails: [
-      { label: "Company", value: "ABS - Alternative Bold Solutions UG (haftungsbeschränkt)" },
-      { label: "Base", value: "Göttingen, Germany" },
-      { label: "Handelsregister", value: "HRB 208086" },
+      { label: "Company", value: company.name },
+      { label: "Commercial register", value: `${company.registerCourt}, ${company.registerNumber}` },
+      { label: "VAT ID", value: company.vatId },
     ] satisfies CompanyDetail[],
     responsePoints: [
-      "A grounded view of technical feasibility",
-      "Suggested next steps for scope and sequencing",
-      "A response written for decision-makers, not generic lead capture",
+      "A personal reply from an engineer, not a sales team",
+      "An honest view of what is feasible",
+      "A concrete next step: a call, a scoping note or a quote",
     ],
     map: {
       label: "Göttingen, Germany",
-      caption: "Christophorusweg 4, 37075 Göttingen",
+      caption: `${company.street}, ${company.postalCodeCity}`,
       embedUrl:
         "https://www.openstreetmap.org/export/embed.html?bbox=9.9318002%2C51.5470965%2C9.9392002%2C51.5506965&layer=mapnik&marker=51.5488965%2C9.9355002",
       externalUrl: "https://www.openstreetmap.org/?mlat=51.5488965&mlon=9.9355002#map=18/51.5488965/9.9355002",
+      consentNote:
+        "The map is loaded from OpenStreetMap only after you click. OpenStreetMap then receives your IP address.",
+      loadLabel: "Load map",
     },
     form: {
       honeypotName: "website",
       projectTypeOptions: [
-        "Custom Software",
-        "AI / OCR / Digitization",
-        "Blockchain / Distributed Systems",
-        "HPC / Technical Computing",
-        "Architecture / Technical Advisory",
+        "Document AI / OCR / Digitisation",
+        "LLM / RAG Assistant",
+        "Compilers / Language Tooling",
+        "Blockchain / Smart-Contract Tooling",
+        "HPC / GPU Workloads",
+        "Custom Software / Technical Advisory",
       ],
       fields: [
         {
@@ -500,121 +477,194 @@ export const siteConfig = {
           name: "message",
           type: "textarea",
           required: true,
-          placeholder: "Describe the technical problem, current constraints, target timeline, and desired outcome.",
+          placeholder: "What problem are you solving, what is in place today, and what is your timeline?",
           maxLength: 5000,
         },
       ] satisfies ContactField[],
       selectPlaceholder: "Select project type",
-      submitLabel: "Send Inquiry",
+      submitLabel: "Send inquiry",
       submittingLabel: "Sending…",
-      successLabel:
-        "Thank you — your inquiry has been sent. ABS will respond with a practical next step shortly.",
-      errorLabel:
-        "Your inquiry couldn't be sent just now. Please try again, or email us directly.",
+      successLabel: "Thank you, your inquiry has been sent. We will reply personally soon.",
+      errorLabel: "Your inquiry couldn't be sent just now. Please try again, or email us directly.",
+      privacyNote: "We use your details only to answer your inquiry. See our",
+      privacyLinkLabel: "privacy policy",
     },
     autoReply: {
-      fromName: "ABS — Alternative Bold Solutions",
-      subject: "We've received your inquiry — ABS",
+      fromName: "ABS - Alternative Bold Solutions",
+      subject: "We've received your inquiry - ABS",
       // {name} is replaced with the sender's name.
       greeting: "Hello {name},",
       paragraphs: [
-        "Thank you for reaching out to ABS — Alternative Bold Solutions. Your inquiry has reached us and is being reviewed.",
-        "We read every message personally and will respond with a practical next step grounded in technical feasibility, architecture, and delivery sequencing. You can expect to hear from us shortly.",
+        "Thank you for contacting ABS - Alternative Bold Solutions. Your inquiry has reached us.",
+        "We read every message personally and will reply with questions or a suggested next step.",
         "If anything urgent comes up in the meantime, simply reply to this email.",
       ],
-      signature: "— The ABS Team",
+      signature: "The ABS team",
     },
   },
   legal: {
     pageTitle: "Impressum",
-    labels: {
-      company: "Company",
-      address: "Address",
-      registrationData: "Registration Data",
-    },
-    companyName: "ABS - Alternative Bold Solutions UG (haftungsbeschränkt)",
+    companyName: company.name,
     address: {
-      street: "Christophorusweg 4",
-      postalCodeCity: "37075 Göttingen",
+      street: company.street,
+      postalCodeCity: company.postalCodeCity,
       country: "Germany",
     },
-    registration: [
-      { label: "Steuernummer", value: "20/200/43488" },
-      { label: "Handelsregister", value: "HRB 208086" },
-    ],
   },
   privacy: {
     pageTitle: "Privacy Policy",
-    lastUpdatedLabel: "Last updated",
-    lastUpdatedValue: "April 10, 2026",
-    intro:
-      "This is a professional GDPR-oriented placeholder privacy policy for ABS - Alternative Bold Solutions UG (haftungsbeschränkt). Legal counsel should review and finalize this text before production use.",
-    sections: [
-      {
-        title: "1. Controller",
-        paragraphs: [
-          "Controller within the meaning of GDPR is ABS - Alternative Bold Solutions UG (haftungsbeschränkt), Christophorusweg 4, 37075 Göttingen, Germany.",
-          "For data protection requests, please use the official contact channels provided on this website.",
-        ],
-      },
-      {
-        title: "2. Categories of Data",
-        paragraphs: [
-          "Depending on your interaction, ABS may process contact details, communication content, technical usage data, and information required to provide services.",
-          "Processing is limited to what is necessary for defined and legitimate purposes.",
-        ],
-      },
-      {
-        title: "3. Legal Bases and Purpose",
-        paragraphs: [
-          "Processing may rely on Art. 6(1)(a), (b), (c), or (f) GDPR depending on context and purpose.",
-          "Purposes include responding to inquiries, delivering contracted services, system security, and legal compliance.",
-        ],
-      },
-      {
-        title: "4. Transfers and Processors",
-        paragraphs: [
-          "Data may be processed by carefully selected service providers under appropriate contractual safeguards.",
-          "Where transfers outside the EEA occur, suitable GDPR transfer mechanisms should be applied.",
-        ],
-      },
-      {
-        title: "5. Data Subject Rights",
-        paragraphs: [
-          "Data subjects may have rights of access, rectification, erasure, restriction, objection, portability, and consent withdrawal where applicable.",
-          "Data subjects may also lodge a complaint with a competent supervisory authority.",
-        ],
-      },
-      {
-        title: "6. Security and Retention",
-        paragraphs: [
-          "Appropriate technical and organizational measures are implemented to protect personal data.",
-          "Retention periods are determined by purpose, legal obligations, and contractual requirements.",
-        ],
-      },
-    ],
+    lastUpdated: { en: "4 November 2026", de: "4. November 2026" },
+    en: {
+      intro:
+        "This policy explains which personal data ABS processes when you visit absolution-gmbh.com or contact us, why, and what rights you have. We do not use analytics, advertising or tracking cookies.",
+      sections: [
+        {
+          title: "1. Controller",
+          paragraphs: [
+            `${company.name}, ${company.street}, ${company.postalCodeCity}, Germany. Represented by the managing director ${company.managingDirector}. E-mail: ${company.email}.`,
+            "We have not appointed a data protection officer, as we are not legally required to. Please send any data protection request to the e-mail address above.",
+          ],
+        },
+        {
+          title: "2. Hosting and delivery (Cloudflare)",
+          paragraphs: [
+            "This website runs on Cloudflare Workers, operated by Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA. When you open a page, Cloudflare processes technical data such as your IP address, the page requested, date and time, browser type and referrer, in order to deliver the site and protect it against attacks.",
+            "Legal basis: Art. 6(1)(f) GDPR. Our legitimate interest is a secure, fast and reliable website. We have a data processing agreement with Cloudflare. Cloudflare is certified under the EU-U.S. Data Privacy Framework, which the European Commission has recognised as adequate (Art. 45 GDPR); standard contractual clauses apply in addition.",
+            "Cloudflare may set strictly necessary security cookies to tell people from bots. These need no consent (§ 25(2) TDDDG).",
+          ],
+        },
+        {
+          title: "3. Fonts",
+          paragraphs: [
+            "Fonts are served from our own server. Your browser does not connect to Google or any other font provider.",
+          ],
+        },
+        {
+          title: "4. Contact form and e-mail",
+          paragraphs: [
+            "When you use the contact form, we process your name, organisation, e-mail address, project type and message. When you e-mail us, we process your e-mail address and the content of your message. We use this data only to answer your inquiry and, where it leads to one, to prepare and carry out a contract.",
+            "Form submissions are sent by e-mail to our mailbox, and you receive an automatic confirmation. Our e-mail is hosted by Google (Google Workspace), operated in the EU by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland, under a data processing agreement. Data may also be processed by Google LLC in the USA, which is certified under the EU-U.S. Data Privacy Framework.",
+            "Legal basis: Art. 6(1)(b) GDPR for inquiries about a contract, otherwise Art. 6(1)(f) GDPR (our interest in answering messages).",
+            "We delete inquiries once they are fully dealt with, unless statutory retention obligations apply, for example for business correspondence (§ 257 HGB, § 147 AO).",
+          ],
+        },
+        {
+          title: "5. Map (OpenStreetMap)",
+          paragraphs: [
+            "The map on our contact section is only loaded after you click \"Load map\". Your browser then connects to the OpenStreetMap Foundation, St John's Innovation Centre, Cowley Road, Cambridge, CB4 0WS, United Kingdom, which receives your IP address and technical request data.",
+            "Legal basis: your consent, Art. 6(1)(a) GDPR and § 25(1) TDDDG, given by clicking. You can withdraw it at any time by reloading the page. The European Commission has issued an adequacy decision for the United Kingdom.",
+          ],
+        },
+        {
+          title: "6. Links to other websites",
+          paragraphs: [
+            "We link to other sites such as our AI Research Journal, GitHub and LinkedIn. They are only contacted when you follow a link. Their own privacy policies apply there.",
+          ],
+        },
+        {
+          title: "7. Your rights",
+          paragraphs: [
+            "You have the right to access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and to withdraw consent at any time with effect for the future (Art. 7(3)).",
+            "Where we rely on Art. 6(1)(f) GDPR, you may object to the processing on grounds relating to your particular situation (Art. 21 GDPR).",
+            "You may also lodge a complaint with a supervisory authority. Ours is: Die Landesbeauftragte für den Datenschutz Niedersachsen, Prinzenstraße 5, 30159 Hannover, Germany.",
+          ],
+        },
+        {
+          title: "8. Other information",
+          paragraphs: [
+            "You are not obliged to provide personal data, but without it we cannot answer your inquiry. We do not use automated decision-making or profiling.",
+            "We update this policy when our website or the law changes. The current version is always on this page.",
+          ],
+        },
+      ] satisfies LegalSection[],
+    },
+    de: {
+      intro:
+        "Diese Erklärung beschreibt, welche personenbezogenen Daten ABS verarbeitet, wenn Sie absolution-gmbh.com besuchen oder uns kontaktieren, zu welchem Zweck, und welche Rechte Sie haben. Wir setzen keine Analyse-, Werbe- oder Tracking-Cookies ein.",
+      sections: [
+        {
+          title: "1. Verantwortlicher",
+          paragraphs: [
+            `${company.name}, ${company.street}, ${company.postalCodeCity}, Deutschland. Vertreten durch den Geschäftsführer ${company.managingDirector}. E-Mail: ${company.email}.`,
+            "Ein Datenschutzbeauftragter ist gesetzlich nicht vorgeschrieben und wurde nicht benannt. Bitte richten Sie Anfragen zum Datenschutz an die oben genannte E-Mail-Adresse.",
+          ],
+        },
+        {
+          title: "2. Hosting und Auslieferung (Cloudflare)",
+          paragraphs: [
+            "Diese Website läuft auf Cloudflare Workers der Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA. Beim Aufruf einer Seite verarbeitet Cloudflare technische Daten wie Ihre IP-Adresse, die aufgerufene Seite, Datum und Uhrzeit, Browsertyp und Referrer, um die Website auszuliefern und vor Angriffen zu schützen.",
+            "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse ist ein sicherer, schneller und zuverlässiger Betrieb der Website. Mit Cloudflare besteht ein Vertrag zur Auftragsverarbeitung. Cloudflare ist nach dem EU-U.S. Data Privacy Framework zertifiziert, für das ein Angemessenheitsbeschluss der EU-Kommission vorliegt (Art. 45 DSGVO); ergänzend gelten Standardvertragsklauseln.",
+            "Cloudflare kann technisch notwendige Sicherheits-Cookies setzen, um Menschen von Bots zu unterscheiden. Dafür ist keine Einwilligung erforderlich (§ 25 Abs. 2 TDDDG).",
+          ],
+        },
+        {
+          title: "3. Schriftarten",
+          paragraphs: [
+            "Die Schriftarten werden von unserem eigenen Server ausgeliefert. Ihr Browser baut keine Verbindung zu Google oder anderen Schriftanbietern auf.",
+          ],
+        },
+        {
+          title: "4. Kontaktformular und E-Mail",
+          paragraphs: [
+            "Wenn Sie das Kontaktformular nutzen, verarbeiten wir Name, Organisation, E-Mail-Adresse, Projektart und Nachricht. Wenn Sie uns eine E-Mail schreiben, verarbeiten wir Ihre E-Mail-Adresse und den Inhalt der Nachricht. Wir nutzen diese Daten nur, um Ihre Anfrage zu beantworten und gegebenenfalls einen Vertrag vorzubereiten und durchzuführen.",
+            "Formularanfragen werden per E-Mail an unser Postfach gesendet; Sie erhalten eine automatische Eingangsbestätigung. Unser E-Mail-Dienst ist Google Workspace, in der EU betrieben von Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland, auf Grundlage eines Vertrags zur Auftragsverarbeitung. Eine Verarbeitung durch Google LLC in den USA ist möglich; Google LLC ist nach dem EU-U.S. Data Privacy Framework zertifiziert.",
+            "Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO bei Anfragen mit Bezug zu einem Vertrag, im Übrigen Art. 6 Abs. 1 lit. f DSGVO (unser Interesse an der Beantwortung von Anfragen).",
+            "Wir löschen Anfragen, sobald sie abschließend bearbeitet sind, sofern keine gesetzlichen Aufbewahrungspflichten bestehen, etwa für Geschäftsbriefe (§ 257 HGB, § 147 AO).",
+          ],
+        },
+        {
+          title: "5. Karte (OpenStreetMap)",
+          paragraphs: [
+            "Die Karte im Kontaktbereich wird erst geladen, wenn Sie auf „Load map“ klicken. Ihr Browser verbindet sich dann mit der OpenStreetMap Foundation, St John's Innovation Centre, Cowley Road, Cambridge, CB4 0WS, Vereinigtes Königreich, die Ihre IP-Adresse und technische Anfragedaten erhält.",
+            "Rechtsgrundlage ist Ihre Einwilligung durch den Klick, Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG. Sie können sie jederzeit widerrufen, indem Sie die Seite neu laden. Für das Vereinigte Königreich liegt ein Angemessenheitsbeschluss der EU-Kommission vor.",
+          ],
+        },
+        {
+          title: "6. Links zu anderen Websites",
+          paragraphs: [
+            "Wir verlinken auf andere Websites, etwa unser AI Research Journal, GitHub und LinkedIn. Diese werden erst kontaktiert, wenn Sie einem Link folgen. Dort gelten deren Datenschutzerklärungen.",
+          ],
+        },
+        {
+          title: "7. Ihre Rechte",
+          paragraphs: [
+            "Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie auf jederzeitigen Widerruf einer Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3).",
+            "Soweit wir uns auf Art. 6 Abs. 1 lit. f DSGVO stützen, können Sie der Verarbeitung aus Gründen, die sich aus Ihrer besonderen Situation ergeben, widersprechen (Art. 21 DSGVO).",
+            "Sie können sich außerdem bei einer Aufsichtsbehörde beschweren. Für uns zuständig ist: Die Landesbeauftragte für den Datenschutz Niedersachsen, Prinzenstraße 5, 30159 Hannover.",
+          ],
+        },
+        {
+          title: "8. Sonstiges",
+          paragraphs: [
+            "Sie sind nicht verpflichtet, uns personenbezogene Daten bereitzustellen; ohne sie können wir Ihre Anfrage jedoch nicht beantworten. Eine automatisierte Entscheidungsfindung einschließlich Profiling findet nicht statt.",
+            "Wir passen diese Erklärung an, wenn sich unsere Website oder die Rechtslage ändert. Die aktuelle Fassung finden Sie stets auf dieser Seite.",
+          ],
+        },
+      ] satisfies LegalSection[],
+    },
   },
   footer: {
     description:
-      "Custom software, compiler design, AI workflows, OCR digitization systems, blockchain components, HPC support, and technical advisory for serious digital programs.",
+      "Document AI and OCR, LLM assistants, compilers and blockchain tooling, and HPC workloads, from Göttingen.",
     quickLinks: [
       { label: "Services", href: "#services" },
       { label: "Projects", href: "#projects" },
+      { label: "Team", href: "#team" },
       { label: "Process", href: "#process" },
       { label: "About", href: "#about" },
       { label: "Contact", href: "#contact" },
     ] satisfies LinkItem[],
     serviceLinks: [
-      { label: "Custom Software", href: "#services" },
-      { label: "Compiler Design", href: "#services" },
-      { label: "AI / OCR", href: "#services" },
-      { label: "Blockchain Systems", href: "#services" },
-      { label: "HPC Support", href: "#services" },
-      { label: "Technical Advisory", href: "#services" },
+      { label: "Document AI / OCR", href: "#service-ai-ocr" },
+      { label: "LLM assistants", href: "#service-llm" },
+      { label: "Compilers", href: "#service-compiler" },
+      { label: "Blockchain tooling", href: "#service-blockchain" },
+      { label: "HPC and GPU", href: "#service-hpc" },
+      { label: "Custom software", href: "#service-software" },
     ] satisfies LinkItem[],
     legalLinks: [
       { label: "Impressum", href: "/impressum" },
-      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Privacy Policy / Datenschutz", href: "/privacy" },
     ] satisfies LinkItem[],
     rightsLabel: "All rights reserved.",
   },

@@ -14,7 +14,7 @@ type ProjectsSectionProps = {
 };
 
 function ProjectCard({ project }: { project: Project }) {
-  const host = new URL(project.href).host;
+  const host = project.href ? new URL(project.href).host : null;
 
   return (
     <motion.article
@@ -23,7 +23,7 @@ function ProjectCard({ project }: { project: Project }) {
       className="grid overflow-hidden rounded-[34px] border border-steel-200 bg-white shadow-panel lg:grid-cols-[1.05fr_0.95fr]"
     >
       <div className="p-3 lg:order-last">
-        <ProjectPreviewIllustration host={host} />
+        <ProjectPreviewIllustration host={project.previewLabel} />
       </div>
 
       <div className="flex flex-col justify-between gap-8 p-6 md:p-9">
@@ -49,12 +49,18 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
 
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-steel-200 pt-6">
-          <a href={project.href} target="_blank" rel="noopener" className="button-primary gap-2">
-            {project.ctaLabel}
-            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            <span className="sr-only"> (opens in a new tab)</span>
-          </a>
-          <span className="text-sm text-steel-500 [font-family:var(--font-mono)]">{host}</span>
+          {project.href && host ? (
+            <>
+              <a href={project.href} target="_blank" rel="noopener" className="button-primary gap-2">
+                {project.ctaLabel}
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              <span className="text-sm text-steel-500 [font-family:var(--font-mono)]">{host}</span>
+            </>
+          ) : (
+            <span className="text-sm text-steel-500">Not yet public. Ask us for a demo.</span>
+          )}
         </div>
       </div>
     </motion.article>
@@ -78,7 +84,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
         <StaggerWrap className="grid gap-6" staggerChildren={0.1}>
           {projects.items.map((project) => (
-            <StaggerItem key={project.href}>
+            <StaggerItem key={project.name}>
               <ProjectCard project={project} />
             </StaggerItem>
           ))}

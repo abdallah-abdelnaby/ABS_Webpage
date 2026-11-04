@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Check, MapPin } from "lucide-react";
+import { useState } from "react";
 
 import type { SiteConfig } from "@/config/site";
 
@@ -14,6 +15,8 @@ type ContactSectionProps = {
 };
 
 export function ContactSection({ contact }: ContactSectionProps) {
+  const [mapLoaded, setMapLoaded] = useState(false);
+
   return (
     <section
       id="contact"
@@ -33,7 +36,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(77,134,255,0.18),transparent_28%)]" />
             <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl space-y-3">
-                <p className="eyebrow text-white/50">Pre-project framing</p>
+                <p className="eyebrow text-white/50">Early advice</p>
                 <h3 className="text-balance text-3xl font-semibold tracking-[-0.04em]">{contact.banner.title}</h3>
                 <p className="text-base leading-7 text-white/70">{contact.banner.description}</p>
               </div>
@@ -57,6 +60,13 @@ export function ContactSection({ contact }: ContactSectionProps) {
                 successLabel={contact.form.successLabel}
                 errorLabel={contact.form.errorLabel}
               />
+              <p className="mt-4 text-xs leading-5 text-steel-500">
+                {contact.form.privacyNote}{" "}
+                <Link href="/privacy" className="text-accent-600 underline underline-offset-4">
+                  {contact.form.privacyLinkLabel}
+                </Link>
+                .
+              </p>
             </div>
           </MotionReveal>
 
@@ -110,13 +120,22 @@ export function ContactSection({ contact }: ContactSectionProps) {
             <StaggerItem>
               <div className="dark-panel overflow-hidden p-4">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[26px] border border-white/10 bg-white/[0.04]">
-                  <iframe
-                    title={`Map for ${contact.map.caption}`}
-                    src={contact.map.embedUrl}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="absolute inset-0 h-full w-full border-0"
-                  />
+                  {mapLoaded ? (
+                    <iframe
+                      title={`Map for ${contact.map.caption}`}
+                      src={contact.map.embedUrl}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      className="absolute inset-0 h-full w-full border-0"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex flex-col items-center justify-start gap-4 p-6 pt-10 text-center grid-dark">
+                      <p className="max-w-xs text-sm leading-6 text-white/70">{contact.map.consentNote}</p>
+                      <button type="button" onClick={() => setMapLoaded(true)} className="button-tertiary px-4 py-2 text-xs">
+                        {contact.map.loadLabel}
+                      </button>
+                    </div>
+                  )}
                   <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,11,21,0.04),transparent_24%,transparent_72%,rgba(5,11,21,0.28))]" />
                   <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-midnight-900/90 px-4 py-3 backdrop-blur-sm">
                     <div className="flex flex-col items-start gap-3 sm:flex-row sm:justify-between sm:gap-4">

@@ -76,8 +76,10 @@ export function ServicesGrid({ services }: ServicesGridProps) {
 
         <StaggerWrap className="grid gap-5 md:grid-cols-2 xl:grid-cols-3" staggerChildren={0.08}>
           {services.items.map((service, index) => (
-            <StaggerItem key={service.title}>
-              <ServiceCard service={service} index={index} />
+            <StaggerItem key={service.id}>
+              <div id={service.id} className="h-full scroll-mt-28 md:scroll-mt-32">
+                <ServiceCard service={service} index={index} />
+              </div>
             </StaggerItem>
           ))}
         </StaggerWrap>
