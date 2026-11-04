@@ -3,37 +3,37 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion",
+    "build": "opennextjs-cloudflare build",
     "build:next": "next build",
     "dev": "next dev",
     "start": "next start",
-    "lint": "next lint",
-    "preview": "opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion && opennextjs-cloudflare deploy",
-    "upload": "opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion && opennextjs-cloudflare upload",
+    "lint": "eslint .",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "^1.19.1",
-    "framer-motion": "^11.3.19",
+    "@opennextjs/cloudflare": "^1.20.16",
+    "framer-motion": "^11.18.2",
     "lucide-react": "^0.453.0",
-    "next": "^15.5.15",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "^16.4.5",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "worker-mailer": "^1.2.1"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "^15.5.15",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.4.5",
     "patch-package": "^8.0.1",
     "postcss": "^8.4.41",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4",
-    "wrangler": "^4.82.2"
+    "wrangler": "^4.157.0"
   }
 }
