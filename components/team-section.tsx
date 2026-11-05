@@ -63,7 +63,7 @@ export function TeamSection({ team }: TeamSectionProps) {
       <div className="shell">
         <SectionHeading id="team-heading" eyebrow={team.eyebrow} title={team.title} description={team.description} />
 
-        <StaggerWrap className="grid gap-6 md:grid-cols-2 xl:grid-cols-3" staggerChildren={0.1}>
+        <StaggerWrap className="grid gap-6 md:grid-cols-2" staggerChildren={0.1}>
           {team.members.map((member) => (
             <StaggerItem key={member.name}>
               <MemberCard member={member} />

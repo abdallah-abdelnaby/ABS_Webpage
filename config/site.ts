@@ -294,7 +294,7 @@ export const siteConfig = {
     eyebrow: "Team",
     title: "The people doing the work.",
     description:
-      "A small team of engineers from Göttingen's research software community, working with trusted freelancers on larger projects.",
+      "A small team of engineers from university research software and open-source blockchain projects, working with trusted freelancers on larger projects.",
     members: [
       {
         name: "Abdallah Abdelnaby",
@@ -335,6 +335,33 @@ export const siteConfig = {
           "Previously: IOTA Foundation R&D, Web3 Foundation (Solang Playground), Kubernetes for a German government rail project, Linux Foundation mentee",
         ],
         focus: ["Compilers", "Infrastructure", "Security"],
+      },
+      {
+        name: "Omar ElSayed",
+        role: "Software Engineer · Blockchain and Smart Contracts",
+        initials: "OE",
+        summary:
+          "Designs, tests and audits smart contracts in Solidity, Rust and Vyper on Ethereum and Solana. Conducts applied research on blockchain systems, AI and cybersecurity at KAUST, and teaches blockchain development to the Arabic-speaking developer community.",
+        background: [
+          "B.Sc. Computer Engineering, American University in Cairo",
+          "Blockchain researcher, KAUST",
+          "Previously: Nethermind (StarkNet node DevOps), smart-contract and backend engineering for DeFi and NFT products",
+          "Hackathon winner: Chainlink Chromion, ETHGlobal Bangkok, ETHDubai",
+        ],
+        focus: ["Smart contracts", "Contract security", "DeFi"],
+      },
+      {
+        name: "Ahmed Abdallah",
+        role: "Software Engineer · Systems and Compilers",
+        initials: "AA",
+        summary:
+          "Works on the Hyperledger Solang compiler and its RISC-V support. Builds low-level systems in Go and C from scratch: an LSM-tree key-value store, a container runtime on Linux namespaces and cgroups, and a Kafka-style message broker.",
+        background: [
+          "B.Sc. Computer Science, Suez Canal University",
+          "Open-source projects: Validb, Orca, LogBroker, mygit",
+          "ICPC local contest qualifier",
+        ],
+        focus: ["Compilers", "Storage engines", "Linux systems"],
       },
     ] satisfies TeamMember[],
   },
