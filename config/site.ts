@@ -370,7 +370,7 @@ export const siteConfig = {
         summary:
           "Works on the Hyperledger Solang compiler. A competitive programmer with a strong algorithms background: three-time ACPC finalist and Candidate Master on Codeforces.",
         background: [
-          "Suez Canal University",
+          "B.Sc. Computer Science, Suez Canal University",
           "3x ACPC (Arab Collegiate Programming Contest) finalist",
           "Candidate Master, Codeforces",
         ],
