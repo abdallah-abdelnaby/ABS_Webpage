@@ -363,6 +363,19 @@ export const siteConfig = {
         ],
         focus: ["Compilers", "Storage engines", "Linux systems"],
       },
+      {
+        name: "Islam Imad",
+        role: "Software Engineer · Compilers",
+        initials: "II",
+        summary:
+          "Works on the Hyperledger Solang compiler. A competitive programmer with a strong algorithms background: three-time ACPC finalist and Candidate Master on Codeforces.",
+        background: [
+          "Suez Canal University",
+          "3x ACPC (Arab Collegiate Programming Contest) finalist",
+          "Candidate Master, Codeforces",
+        ],
+        focus: ["Compilers", "Algorithms", "Solang"],
+      },
     ] satisfies TeamMember[],
   },
   process: {
