@@ -129,7 +129,7 @@ export function ContactSection({ contact }: ContactSectionProps) {
                       className="absolute inset-0 h-full w-full border-0"
                     />
                   ) : (
-                    <div className="absolute inset-0 flex flex-col items-center justify-start gap-4 p-6 pt-10 text-center grid-dark">
+                    <div className="absolute inset-0 flex flex-col items-center justify-start gap-4 bg-midnight-900 p-6 pt-10 text-center grid-dark">
                       <p className="max-w-xs text-sm leading-6 text-white/70">{contact.map.consentNote}</p>
                       <button type="button" onClick={() => setMapLoaded(true)} className="button-tertiary px-4 py-2 text-xs">
                         {contact.map.loadLabel}
